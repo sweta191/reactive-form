@@ -11,7 +11,7 @@ import {UsernameValidators} from './validation';
 export class AppComponent {
 
   constructor(private fb:FormBuilder){}
-  title = 'reactive-form';
+  //title = 'reactive-form';
   get UserName()
   {
     return this.registrationForm.get('userName');
@@ -39,7 +39,7 @@ export class AppComponent {
   ];
 
   registrationForm = this.fb.group({
-    userName:['',[Validators.required,Validators.minLength(3),UsernameValidators.cannotContainSpace]],
+    userName:['Sweta',[Validators.required,Validators.minLength(3),UsernameValidators.cannotContainSpace]],
     password:['',[Validators.required]],
     confirmPassword:[],
     email:['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
@@ -81,5 +81,22 @@ export class AppComponent {
         
     });
   }
+
+  login()
+  {
+    console.log(this.registrationForm.value);
+    if(this.registrationForm.valid)
+    {
+      //this.registrationForm.reset();
+      console.log("form has been submitted");
+    }
+    else
+    {
+      this.registrationForm.setErrors({invalid:true});
+      console.log("fill the details first");
+    }
+  }
+    
+  
   
 }

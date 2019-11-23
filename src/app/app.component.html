@@ -1,5 +1,8 @@
 <div class="container-fluid">
-  <form [formGroup]="registrationForm">
+  <form [formGroup]="registrationForm" (ngSubmit)="login()">
+    
+    
+
     <div class="form-group">
       <label>Name</label>
       <input  formControlName="userName" type="text" class="form-control">
@@ -53,7 +56,7 @@
     <div class="form-group">
         <label for="category">Category</label>
         <select formControlName="category" class="form-control">
-          <option value=""></option>
+          <option value="Select"></option>
           <option *ngFor="let c of category" [value]="c.id">{{ c.name }}</option>
         </select>
     </div>
@@ -76,9 +79,15 @@
             </label>
 
     </div>
-    
+    <div *ngIf="!registrationForm.valid && registrationForm.errors" class="alert alert-danger">
+        <div *ngIf="UserName.errors?.required">Username is required</div>
+        <div *ngIf="Email.errors?.required">Email is required</div>
+        <div *ngIf="Phone.errors?.required">Phone no  is required</div>
 
-    <button type="submit" class="btn btn-primary">Register</button>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary" >Register</button>
     <!-- <button (click)="loadapi()" class="btn btn-primary">load the data</button> -->
   </form>
   {{registrationForm.value | json}}
